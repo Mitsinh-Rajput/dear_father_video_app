@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dear_father_video_app/services/extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -70,12 +69,7 @@ class AuthController extends GetxController implements GetxService {
     "Mileage",
   ];
 
-  List QuestionThirdOption = [
-    "Plain Alpha blocker",
-    "Tamsulosin + Deflazacort",
-    "NSAIDs",
-    "Others (Pls specify)"
-  ];
+  List QuestionThirdOption = ["Plain Alpha blocker", "Tamsulosin + Deflazacort", "NSAIDs", "Others (Pls specify)"];
 
   List QuestionFourthOption = ["Yes", "No"];
   List QuestionFifthOption = ["Efficacy", "Safety"];
@@ -99,14 +93,7 @@ class AuthController extends GetxController implements GetxService {
   List<bool> QuestionThreeCheckBox = [false, false, false];
 
   List<String> images = [
-    Assets.imagesBG,
-    Assets.imagesBG,
-    Assets.imagesD9,
-    Assets.imagesD3,
-    Assets.imagesD4,
-    Assets.imagesD10,
-    Assets.imagesD6,
-    Assets.imagesD7,
+    Assets.images2D,
     Assets.imagesBG,
   ];
 
@@ -127,49 +114,23 @@ class AuthController extends GetxController implements GetxService {
 
   forwardButton() async {
     focusNode.unfocus();
-    if (pageController.page! < images.length && validatePages()) {
+    if (pageController.page! < images.length) {
       if (pageController.page! == 4) {
         pageController.jumpToPage(5);
         update();
-      } else if (pageController.page! == images.length - 1 && validatePages()) {
+      } else if (pageController.page! == images.length - 1) {
         submitForm();
         // await pageController.animateToPage(0, duration: const Duration(milliseconds: 50), curve: Curves.ease);
         // update();
       } else {
-        await pageController.animateToPage((pageController.page! + 1).round(),
-            duration: const Duration(milliseconds: 50), curve: Curves.ease);
+        await pageController.animateToPage((pageController.page! + 1).round(), duration: const Duration(milliseconds: 50), curve: Curves.ease);
         update();
       }
     }
   }
 
-  bool validatePages() {
-    if (pageController.page! == 0) {
-      return true;
-    } else if (pageController.page! == 1) {
-      if (oneController.text.isValid &&
-          twoController.text.isValid &&
-          threeController.text.isValid &&
-          fourController.text.isValid) {
-        return true;
-      }
-      Fluttertoast.showToast(msg: "Please enter all data");
-      return false;
-    } else if (pageController.page! == images.length - 1) {
-      if (comments.text != "") {
-        return true;
-      }
-      Fluttertoast.showToast(msg: "Please provide value");
-      return false;
-    }
-    {
-      return true;
-    }
-  }
-
   resetForm() async {
-    await pageController.animateToPage(0,
-        duration: const Duration(milliseconds: 50), curve: Curves.ease);
+    await pageController.animateToPage(0, duration: const Duration(milliseconds: 50), curve: Curves.ease);
     oneController.clear();
     twoController.clear();
     threeController.clear();
@@ -183,8 +144,7 @@ class AuthController extends GetxController implements GetxService {
     QuestionfifthAnswer = "";
     QuestionSixAnswer = "";
     QuestionSevenAnswer.clear();
-    await pageController.animateToPage(0,
-        duration: const Duration(milliseconds: 50), curve: Curves.ease);
+    await pageController.animateToPage(0, duration: const Duration(milliseconds: 50), curve: Curves.ease);
     update();
   }
 
@@ -210,8 +170,7 @@ class AuthController extends GetxController implements GetxService {
           SharedPreferences sharedPreferences = Get.find();
           sharedPreferences.clear();
           log('${sharedPreferences.getString('saved_data')}');
-          List<dynamic> savedData =
-              jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
+          List<dynamic> savedData = jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
           savedData.add(data);
           sharedPreferences.setString('saved_data', jsonEncode(savedData));
           resetForm();
@@ -223,8 +182,7 @@ class AuthController extends GetxController implements GetxService {
       });
     } else {
       SharedPreferences sharedPreferences = Get.find();
-      List<dynamic> savedData =
-          jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
+      List<dynamic> savedData = jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
       savedData.add(data);
       sharedPreferences.setString('saved_data', jsonEncode(savedData));
       Fluttertoast.showToast(msg: "Data saved locally");
@@ -248,8 +206,7 @@ class AuthController extends GetxController implements GetxService {
         update();
       } else {
         _isLoading = false;
-        responseModel =
-            ResponseModel(false, response.statusText!, response.body['errors']);
+        responseModel = ResponseModel(false, response.statusText!, response.body['errors']);
         update();
       }
     } catch (e) {
@@ -265,8 +222,7 @@ class AuthController extends GetxController implements GetxService {
   syncData() async {
     if (await connectivity()) {
       SharedPreferences sharedPreferences = Get.find();
-      List<dynamic> savedData =
-          jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
+      List<dynamic> savedData = jsonDecode(sharedPreferences.getString('saved_data') ?? '[]');
       List remaining = [];
       if (savedData.isNotEmpty) {
         log(savedData.toString(), name: "Data available");

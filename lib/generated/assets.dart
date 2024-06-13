@@ -82,4 +82,6 @@ class Assets {
   static const String pngs7 = 'assets/images/pngs/7.png';
   static const String pngs8 = 'assets/images/pngs/8.png';
   static const String pngs9 = 'assets/images/pngs/9.png';
+
+  static const String videosDearDadVideo = 'assets/videos/dear_dad_video.mp4';
 }

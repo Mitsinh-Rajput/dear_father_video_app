@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         }
       },
       child: MaterialApp(
-        title: "Father's Day",
+        title: "Father's Day Video",
         navigatorKey: navigatorKey,
         themeMode: ThemeMode.light,
         theme: CustomTheme.light,

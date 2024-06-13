@@ -76,6 +76,7 @@ flutter:
     - assets/svgs/
     - assets/fonts/AgencyGothicCT.ttf
     - assets/audios/
+    - assets/videos/
 
 flutter_launcher_icons:
   android: "launcher_icon"
